@@ -1,0 +1,27 @@
+---
+- name: run a webserver
+  gather_facts: no
+  hosts: managed1
+  tasks:
+    - name: installing httpd
+      ansible.builtin.dnf:
+        name: httpd
+        state: latest
+
+    - name: start and enable httpd
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: open port in firewall
+      ansible.posix.firewalld:
+        service: http
+        state: enabled
+        immediate: yes
+        permanent: yes
+
+    - name: copy a prepared file
+      ansible.builtin.copy:
+        src: ./index.html
+        dest: /var/www/html

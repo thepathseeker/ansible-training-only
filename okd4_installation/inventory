@@ -1,0 +1,2 @@
+[helper_vm]
+okd4-services.ocp4.sophon.virtnet ansible_host=192.168.116.217 ansible_user=astsu ansible_ssh_private_key=/home/astsu/.ssh/id_ed25519

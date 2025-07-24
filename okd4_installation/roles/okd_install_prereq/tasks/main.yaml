@@ -1,0 +1,57 @@
+---
+- name: Download "oc"
+  ansible.builtin.get_url:
+    url: "{{ oc_url }}"
+    dest: /home/astsu/
+
+- name: Download "openshift-install"
+  ansible.builtin.get_url:
+    url "{{ openshift_install_url }}"
+    dest: /home/astsu/
+
+- name: Extract "oc" to /usr/bin/
+  ansible.builtin.unarchive:
+    src: "/home/astsu/openshift-client-linux-{{ okd_z }}.tar.gz"
+    dest: /usr/bin/
+    remote_src: yes
+
+- name: Extract "openshift-install" to /usr/bin/local/
+  ansible.builtin.unarchive:
+    src: "/home/astsu/openshift-install-linux-{{ okd_z }}.tar.gz"
+    dest: /usr/bin/local/
+    remote_src: yes
+
+# - name: Download RHCOS .raw.gz??
+
+# /etc/haproxy/haproxy.cfg is root:root 0644
+
+- name: Configure haproxy.cfg file
+  ansible.builtin.copy:
+    src: haproxy.cfg
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reload HAProxy service
+  ansible.builtin.systemd:
+    name: haproxy
+    state: reloaded
+
+- name: Create the OpenShift installation directory if it does not exist
+  ansible.builtin.file:
+    path: /home/astsu/okd4upi
+    state: directory
+    owner: astsu
+    group: astsu
+    mode: '0755'
+
+- name: Create custom install-config.yaml file
+  ansible.builtin.copy:
+    src: install-config.yaml
+    dest: /home/astsu/okd4upi/install-config.yaml
+    owner: astsu
+    group: astsu
+    mode: '0644'
+
+

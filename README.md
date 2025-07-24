@@ -1,3 +1,0 @@
-# ansible-training-only
-
-Only for ansible training, delete everything afterwards: repository, ssh keys ...

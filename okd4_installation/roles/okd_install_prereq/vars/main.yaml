@@ -1,0 +1,7 @@
+---
+# vars file
+okd_maj: "4.19"
+okd_z: "4.19.0"
+
+oc_url: https://github.com/okd-project/okd/releases/download/{{ okd_z}}-okd-scos.9/openshift-client-linux-amd64-rhel9-{{ okd_z }}-okd-scos.9.tar.gz
+openshift_install_url: https://github.com/okd-project/okd/releases/download/{{ okd_z }}-okd-scos.9/openshift-install-linux-{{ okd_z }}-okd-scos.9.tar.gz
